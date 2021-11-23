@@ -1,5 +1,4 @@
 <?php
-require "includes/config.php";
 require "includes/connect.php";
 
 //  on vérifie que les champs du formulaire sont correctement remplis...
@@ -7,7 +6,7 @@ if(empty($_POST['title']) || empty($_POST['description']) || empty($_POST['posta
 {
     header('Location:addAnnonce.php?error=missingInput');
     exit();
-    // ... si c'est le cas, on initialise les variables avec assainissement pour limiter les risque d'injections SQL
+    // ... si c'est le cas, on initialise les variables avec assainissement pour limiter les risque d'injections SQL, avec htmllspecialchars pour limiter les caractères non désirés par exemple, qui pourrait interférer avec notre code
 } else {
     $title = htmlspecialchars(trim($_POST['title']));
     $description = htmlspecialchars(trim($_POST['description']));
@@ -17,7 +16,7 @@ if(empty($_POST['title']) || empty($_POST['description']) || empty($_POST['posta
     $price = htmlspecialchars(trim($_POST['price']));
   
 
-// on ajoute les informations des champs dans la base de données
+// on insère les informations des champs dans la base de données, en précisant le type des données (string,etc.)
 try {
     $insertAdvert = 'INSERT INTO advert (title, description, postal_code, city, type, price) VALUES(:title, :description, :postal_code, :city, :type, :price)';
     $reqInsertAdvert = $connexion->prepare($insertAdvert);

@@ -2,12 +2,13 @@
 include_once "_navbar.php";
 include_once "_header.php";
 include "_viewAnnonce.php";
-
 ?>
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <!-- pour n'afficher que les 15 premières annonces de la BDD
+        une carte modèle qui se répète pour chaque ligne de la table dans la BDD -->
             <?php
             $i=0;
         foreach($annonces as $annonces){
@@ -16,6 +17,7 @@ include "_viewAnnonce.php";
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-header">
+                        <!-- pour notifier de la disponibilité d'un bien : si un message de reservation a été envoyé, le bien est noté comme reservé -->
                         <?php
     if ($annonces['reservation_message'] == NULL ) { ?>
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">
